@@ -13,7 +13,7 @@ FORMAT = pa.paInt16     # Audio format (16-bit PCM)
 CHANNELS = 1            # 1 for mono audio, 2 for stereo
 GAIN = 3.0              # Gain factor for audio amplification
 RATE = 16000            # Model expects 16,000 Hz audio
-WINDOW_SECONDS = 2.0    # Duration of audio window for processing
+WINDOW_SECONDS = 4.0    # Duration of audio window for processing
 CHUNKS_PER_WINDOW = int((RATE * WINDOW_SECONDS) / CHUNK)  # Number of chunks in the window
 
 print("Loading Whisper model... (Might take a while on first run. ~140MB download)")
@@ -35,7 +35,7 @@ model = WhisperModel("small", device=device, compute_type="int8", cpu_threads=8)
 print("Model loaded.")
 p = pa.PyAudio()        # Initialize PyAudio   
 
-name = input("Enter your name: ")  # Get user's name for detection
+name = input("Enter your name (Type nothing for no name): ")  # Get user's name for detection
 
 print("\nAvailable Audio Input Devices:")
 for i in range(p.get_device_count()):
@@ -83,7 +83,7 @@ try:
             audio_data = audio_data[indices]
             
         frames.append(audio_data)
-        audio_data = np.clip(audio_data * GAIN).clip(-32768, 32767).astype(np.int16)  # Apply gain and ensure values are within Int16 range
+        audio_data = np.clip(audio_data * GAIN, -32768, 32767).astype(np.int16)  # Apply gain and ensure values are within Int16 range
         audio_float32 = audio_data.astype(np.float32) / 32768.0  # Convert Int16 (-32768 to 32767) to Float32 (-1.0 to 1.0) (Whisper expects Float32 input)
         volume = np.abs(audio_data).mean()
         if volume < 150:  # Adjust threshold as needed for silence detection

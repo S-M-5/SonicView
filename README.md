@@ -2,6 +2,8 @@
 
 **SonicView** is a real-time audio transcription and keyword detection tool. It uses the **Faster-Whisper** engine to process audio from your microphone or desktop speakers, transcribing speech instantly and alerting you whenever your name is mentioned.
 
+
+![SonicView Architecture](Flowchart.png)
 ---
 
 ## How It Works

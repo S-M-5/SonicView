@@ -36,6 +36,7 @@ print("Model loaded.")
 p = pa.PyAudio()        # Initialize PyAudio   
 
 name = input("Enter your name (Type nothing for no name): ")  # Get user's name for detection
+keywords = input("Enter keywords to listen for (comma-separated, Enter nothing for no keywords): ").split(",")  # Get keywords for detection (optional)
 
 print("\nAvailable Audio Input Devices:")
 for i in range(p.get_device_count()):
@@ -101,6 +102,10 @@ try:
             print(f"[{info.language}] Heard: '{text}'")
             if name and name.lower() in text:
                 print(f"{Fore.RED}Your name {name} was called.{Style.RESET_ALL}")
+            for keyword in keywords:
+                keyword = keyword.strip().lower()
+                if keyword and keyword in text:
+                    print(f"{Fore.YELLOW}Keyword '{keyword}' detected!{Style.RESET_ALL}")
 
 except KeyboardInterrupt:
     print("Stopping...")        # Handle Ctrl+C to stop

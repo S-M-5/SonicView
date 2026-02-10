@@ -4,6 +4,7 @@
 
 
 ![SonicView Architecture](Flowchart.png)
+
 ---
 
 ## How It Works
@@ -48,3 +49,47 @@ You can adjust these variables at the top of the script:
 | `WINDOW_SECONDS`    | 2.0     | The duration of audio processed at once.                                    |
 | `MODEL_SIZE`        | `small` | Options: `tiny`, `base`, `small`, `medium`, `large-v3`.                     |
 | `SILENCE_THRESHOLD` | 150     | Minimum volume level required to trigger AI processing.                     |
+
+---
+
+## Installation
+
+### Prerequisites
+* **OS:** Windows 10/11 (Required for `PyAudioWPatch` loopback support)
+* **Python:** 3.10+
+* **FFmpeg:** Required for audio processing.
+    * *Install via Winget:* `winget install -e --id Gyan.FFmpeg`
+    * *Or download manually* and add to your System PATH.
+ 
+---
+
+### Setup
+1.  **Clone the repository:**
+    ```bash
+    git clone [https://github.com/S-M-5/SonicView.git](https://github.com/S-M-5/SonicView.git)
+    cd SonicView
+    ```
+
+2.  **Create a Virtual Environment (Recommended):**
+    ```bash
+    python -m venv venv
+    .\venv\Scripts\activate
+    ```
+
+3.  **Install Dependencies:**
+    ```bash
+    pip install -r requirements.txt
+    ```
+    
+---
+
+## Usage
+
+1.  Run the main application:
+    ```bash
+    python main.py
+    ```
+    *(Note: Replace `main.py` with your actual entry filename if different)*
+
+2.  Select your audio input device index when prompted.
+3.  The transcription will appear in the console real-time.
